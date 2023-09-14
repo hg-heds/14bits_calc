@@ -8,7 +8,7 @@ long reads_in_semirev = 0;
 long reads_in_semirev_history = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600); 
   pinMode(9,INPUT);
   ms = millis();
 }
@@ -29,6 +29,7 @@ void loop() {
     Serial.print(reads_in_semirev_history);
     Serial.print(F("    "));
     Serial.println(60*(float)count_semirev/secs/BLADE_COUNT,4);
+    reads_in_semirev_history = 0;
     count_semirev = 0;
     ms = millis();
   }
