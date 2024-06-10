@@ -3,7 +3,7 @@
 #include <Servo.h>//Using servo library to control ESC
 Servo esc; //Creating a servo class with name as esc
 long count_rev = 0;
-bool signal = false;
+bool leitura = false;
 bool read = false;
 long ms = millis();
 int val; //Creating a variable val

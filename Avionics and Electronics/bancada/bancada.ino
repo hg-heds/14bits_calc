@@ -3,7 +3,7 @@
 #include <Servo.h>
 
 long count_rev = 0;
-bool history = false;
+bool leitura_anterior = false;
 bool read = false;
 long ms,tm;
 int val;
@@ -16,14 +16,15 @@ void setup() {
   esc.attach(9,1000,2000); 
   ms = millis();
   tm = millis();
+  Serial.println("Starting...");
 }
 
 void loop() {
   read = digitalRead(5);
-  if (read == true && history == false){
+  if (read == true && leitura_anterior == false){
     count_rev++;
   }
-  history = read;
+  leitura_anterior = read;
   if (count_rev == SAMPLE_SIZE){
     secs = ((float)(millis()-ms))/1000;
     Serial.print(val);
@@ -34,7 +35,7 @@ void loop() {
   }
   if (millis()-tm > 100){
     val = analogRead(A0);
-    val = map(val,0,1023,0,160);
+    val = map(val,0,1023,0,180);
     esc.write(val); 
     tm = millis();
   }

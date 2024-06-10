@@ -1,8 +1,8 @@
 #define BLADE_COUNT 2
 #define SAMPLE_SIZE 80
 int count_semirev = 0;
-bool history = false;
-bool signal = false;
+bool leitura_anterior = false;
+bool leitura = false;
 long ms;
 long reads_in_semirev = 0;
 long reads_in_semirev_history = 0;
@@ -14,14 +14,14 @@ void setup() {
 }
 
 void loop() {
-  signal = digitalRead(9);
+  leitura = digitalRead(9);
   reads_in_semirev++;
-  if (signal == true && history == false){
+  if (leitura == true && leitura_anterior == false){
     reads_in_semirev_history = (reads_in_semirev_history*count_semirev+reads_in_semirev)/(count_semirev+1);
     count_semirev++;
     reads_in_semirev = 0;
   }
-  history = signal;
+  leitura_anterior = signal;leitura
   if (count_semirev == SAMPLE_SIZE){
     float secs = ((float)(millis()-ms))/1000;
     Serial.print(millis());
